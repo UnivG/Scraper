@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przeglądanie produktów</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Przeglądanie produktów</h1>
+    
+    <form action="/products" method="GET">
+        <label for="name">Nazwa produktu:</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="sort">Sortuj według:</label>
+        <select id="sort" name="sort">
+            <option value="name">Nazwa</option>
+            <option value="price">Cena</option>
+            <option value="rating">Ocena</option>
+        </select>
+        
+        <label for="order">Kolejność:</label>
+        <select id="order" name="order">
+            <option value="1">Rosnąco</option>
+            <option value="-1">Malejąco</option>
+        </select>
+        
+        <button type="submit">Filtruj i sortuj</button>
+    </form>
+    
+    <div class="container">
+        {% for product in products %}
+        <div class="product">
+            <h3>{{ product.name }}</h3>
+            <p><strong>Cena:</strong> {{ product.price }}</p>
+            <p><strong>Opis:</strong> {{ product.description }}</p>
+            <p><strong>Liczba recenzji:</strong> {{ product.review_count }}</p>
+            <p><strong>Ocena:</strong> {% if product.rating %}{{ product.rating }}{% else %}Brak oceny{% endif %}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
